@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import profile, quiz, recommend, colleges, timeline
+from app.routes import auth, profile, quiz, recommend, colleges, timeline
 
 app = FastAPI(title="udaan.ai", version="1.0.0")
 
@@ -12,6 +12,7 @@ app.add_middleware(
     allow_credentials=True,
 )
 
+app.include_router(auth.router)
 app.include_router(profile.router)
 app.include_router(quiz.router)
 app.include_router(recommend.router)

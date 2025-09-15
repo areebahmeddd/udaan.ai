@@ -100,3 +100,22 @@ class Timeline(BaseModel):
 class TimelineRequest(BaseModel):
     user_id: str
     quiz_id: str
+
+
+class UserSignUp(BaseModel):
+    email: str
+    password: str
+    name: str
+
+
+class UserSignIn(BaseModel):
+    email: str
+    password: str
+
+
+class AuthResponse(BaseModel):
+    user_id: str
+    email: str
+    access_token: str
+    refresh_token: str
+    profile_exists: bool

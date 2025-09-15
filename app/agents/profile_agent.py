@@ -1,12 +1,10 @@
-import uuid
 from app.db import get_supabase
 from app.models import ProfileCreate, Profile
 from typing import Optional
 
 
-async def create_profile(profile_data: ProfileCreate) -> Profile:
+async def create_profile(profile_data: ProfileCreate, user_id: str) -> Profile:
     supabase = get_supabase()
-    user_id = str(uuid.uuid4())
 
     profile_dict = profile_data.model_dump()
     profile_dict["user_id"] = user_id

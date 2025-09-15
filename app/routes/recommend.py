@@ -1,5 +1,6 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from app.agents import recommendation_agent
+from app.auth import get_user
 from pydantic import BaseModel
 from typing import Dict, Any
 
@@ -7,15 +8,17 @@ router = APIRouter(prefix="/api/v1/recommend")
 
 
 class RecommendationRequest(BaseModel):
-    user_id: str
     quiz_id: str
 
 
 @router.post("/")
-async def fetch_recommendations(request: RecommendationRequest) -> Dict[str, Any]:
+async def fetch_recommendations(
+    request: RecommendationRequest, current_user: Dict[str, Any] = Depends(get_user)
+) -> Dict[str, Any]:
     try:
+        user_id = current_user["user_id"]
         recommendations = await recommendation_agent.fetch_recommendations(
-            request.user_id, request.quiz_id
+            user_id, request.quiz_id
         )
         return recommendations
     except Exception as e:
