@@ -80,6 +80,13 @@ class College(BaseModel):
     created_at: datetime
 
 
+class CollegeRequest(BaseModel):
+    user_id: str
+    quiz_id: str
+    field: Optional[str] = None
+    location_type: Optional[str] = "state"
+
+
 class Timeline(BaseModel):
     id: str
     name: str

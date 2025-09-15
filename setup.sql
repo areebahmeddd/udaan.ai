@@ -31,3 +31,13 @@ CREATE TABLE IF NOT EXISTS quiz_responses (
   answers jsonb,
   created_at timestamptz DEFAULT now()
 );
+
+-- Create colleges table for storing college recommendations
+CREATE TABLE IF NOT EXISTS colleges (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES profiles(user_id),
+  colleges_json jsonb,
+  source text,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
+);
