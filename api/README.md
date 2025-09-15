@@ -14,6 +14,8 @@ app/
  │    └── college_api.py
  ├── requirements.txt # Dependencies
  └── ...
+
+
 # 1. Create a virtual environment
 python -m venv .venv
 
@@ -33,4 +35,5 @@ http://127.0.0.1:8000/docs
 
 # 6. Stop the server
 Ctrl c
+
 
