@@ -1,9 +1,10 @@
 from fastapi import FastAPI
-from app.routes import profile, quiz
+from app.routes import profile, quiz, recommend
 
 app = FastAPI(title="udaan.ai", version="1.0.0")
 app.include_router(profile.router)
 app.include_router(quiz.router)
+app.include_router(recommend.router)
 
 
 @app.get("/health")
