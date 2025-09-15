@@ -95,3 +95,8 @@ class Timeline(BaseModel):
     starts_on: str
     ends_on: str
     regions: Optional[Dict[str, Any]] = None
+
+
+class TimelineRequest(BaseModel):
+    user_id: str
+    quiz_id: str

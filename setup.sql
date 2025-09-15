@@ -41,3 +41,13 @@ CREATE TABLE IF NOT EXISTS colleges (
   created_at timestamptz DEFAULT now(),
   updated_at timestamptz DEFAULT now()
 );
+
+-- Create timelines table for storing timeline recommendations
+CREATE TABLE IF NOT EXISTS timelines (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES profiles(user_id),
+  timeline_json jsonb,
+  source text,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
+);

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import profile, quiz, recommend, colleges
+from app.routes import profile, quiz, recommend, colleges, timeline
 
 app = FastAPI(title="udaan.ai", version="1.0.0")
 
@@ -16,6 +16,7 @@ app.include_router(profile.router)
 app.include_router(quiz.router)
 app.include_router(recommend.router)
 app.include_router(colleges.router)
+app.include_router(timeline.router)
 
 
 @app.get("/health")
