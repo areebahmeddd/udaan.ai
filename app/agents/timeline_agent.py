@@ -368,7 +368,14 @@ Generate timeline plan in this JSON format:
     response = model.generate_content(prompt)
 
     try:
-        intelligent_timeline = json.loads(response.text.strip())
+        response_text = response.text.strip()
+
+        if "```json" in response_text:
+            response_text = response_text.split("```json")[1].split("```")[0].strip()
+        elif "```" in response_text:
+            response_text = response_text.split("```")[1].strip()
+
+        intelligent_timeline = json.loads(response_text)
         return intelligent_timeline
     except (json.JSONDecodeError, KeyError):
         return {

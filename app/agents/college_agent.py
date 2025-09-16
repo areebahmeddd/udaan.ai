@@ -370,7 +370,14 @@ Provide specific, actionable recommendations based strictly on their profile and
     response = model.generate_content(prompt)
 
     try:
-        intelligent_recs = json.loads(response.text.strip())
+        response_text = response.text.strip()
+
+        if "```json" in response_text:
+            response_text = response_text.split("```json")[1].split("```")[0].strip()
+        elif "```" in response_text:
+            response_text = response_text.split("```")[1].strip()
+
+        intelligent_recs = json.loads(response_text)
         return intelligent_recs
     except (json.JSONDecodeError, KeyError):
         return {

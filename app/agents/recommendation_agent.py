@@ -80,7 +80,14 @@ Return the response as a valid JSON object with the following structure:
     response = model.generate_content(prompt)
 
     try:
-        recommendations = json.loads(response.text.strip())
+        response_text = response.text.strip()
+
+        if "```json" in response_text:
+            response_text = response_text.split("```json")[1].split("```")[0].strip()
+        elif "```" in response_text:
+            response_text = response_text.split("```")[1].strip()
+
+        recommendations = json.loads(response_text)
 
         streams = recommendations.get("streams", [])
         reasons = recommendations.get("reasons", {})
@@ -157,7 +164,14 @@ Return the response as a valid JSON object with the following structure:
     response = model.generate_content(prompt)
 
     try:
-        recommendations = json.loads(response.text.strip())
+        response_text = response.text.strip()
+
+        if "```json" in response_text:
+            response_text = response_text.split("```json")[1].split("```")[0].strip()
+        elif "```" in response_text:
+            response_text = response_text.split("```")[1].strip()
+
+        recommendations = json.loads(response_text)
 
         courses = recommendations.get("courses", [])
         careers = recommendations.get("careers", {})

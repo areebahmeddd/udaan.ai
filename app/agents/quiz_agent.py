@@ -87,7 +87,14 @@ async def call_gemini(profile: Profile, history: List[Dict]) -> Dict[str, Any]:
     response = model.generate_content(prompt)
 
     try:
-        question_json = json.loads(response.text.strip())
+        response_text = response.text.strip()
+
+        if "```json" in response_text:
+            response_text = response_text.split("```json")[1].split("```")[0].strip()
+        elif "```" in response_text:
+            response_text = response_text.split("```")[1].strip()
+
+        question_json = json.loads(response_text)
         return validate_question(question_json)
     except (json.JSONDecodeError, KeyError):
         raise Exception("invalid gemini response")
